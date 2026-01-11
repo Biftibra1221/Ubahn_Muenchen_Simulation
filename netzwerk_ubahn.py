@@ -65,40 +65,6 @@ class UbahnNetz:
         self.graph[node_a].append((node_b, self.umsteigezeit))
         self.graph[node_b].append((node_a, self.umsteigezeit))
 
-    '''    def kuerzeste_strecke(self, start, ziel):
-        """
-        Berechnet die kürzeste Strecke von start nach ziel
-        (unabhängig von der Startlinie).
-        """
-        start_nodes = [(0, (start, linie)) for linie in self.linien]
-        dist = {}
-        vorgaenger = {}
-
-        pq = []
-        for kosten, node in start_nodes:
-            heapq.heappush(pq, (kosten, node))
-            dist[node] = 0
-
-        ziel_nodes = {(ziel, linie) for linie in self.linien}
-
-        while pq:
-            kosten, aktueller = heapq.heappop(pq)
-
-            if aktueller in ziel_nodes:
-                return self._rekonstruiere_pfad(vorgaenger, aktueller), kosten
-
-            if kosten > dist.get(aktueller, float("inf")):
-                continue
-
-            for nachbar, gewicht in self.graph[aktueller]:
-                neue_kosten = kosten + gewicht
-                if neue_kosten < dist.get(nachbar, float("inf")):
-                    dist[nachbar] = neue_kosten
-                    vorgaenger[nachbar] = aktueller
-                    heapq.heappush(pq, (neue_kosten, nachbar))
-
-        return None, float("inf")'''
-
     def kuerzeste_strecke(self, start, ziel):
         """
         Berechnet die kürzeste Strecke von start nach ziel
@@ -228,12 +194,7 @@ if __name__ == "__main__":
     netz.set_umsteigezeit(4)
 
     # Verbindungen
-    '''
-    netz.add_verbindung("Hauptbahnhof", "Sendlinger Tor", "U1", 2)
-    netz.add_verbindung("Sendlinger Tor", "Marienplatz", "U1", 2)
-
-    netz.add_verbindung("Hauptbahnhof", "Odeonsplatz", "U2", 3)
-    netz.add_verbindung("Odeonsplatz", "Marienplatz", "U2", 1)'''
+    # netz.add_verbindung("Hauptbahnhof", "Sendlinger Tor", "U1", 2)'''
     
     for linie, abschnitte in strecken_mit_Zeit.items():
         for start, ende, dauer in abschnitte:
@@ -241,16 +202,19 @@ if __name__ == "__main__":
 
 
     # Umstiege
-    '''    netz.add_umstieg("Hauptbahnhof", "U1", "U5")
-    netz.add_umstieg("Marienplatz", "U1", "U2")
-    '''
+    # netz.add_umstieg("Hauptbahnhof", "U1", "U5")
+    
     for station, linien in umstiege.items():
         for linie_a, linie_b in combinations(linien, 2):
             netz.add_umstieg(station, linie_a, linie_b)
 
     # Verbindung löschen (Beispiel)
+    # netz.delete_verbindung("Hauptbahnhof", "Sendlinger Tor", "U1")
+
     for unavailable_verbindung in unavailable_verbindungen:
         netz.delete_verbindung(*unavailable_verbindung)
+
+    # Benutzerinteraktion
 
     start_station = input("Geben Sie die Startstation ein: ")
     false_counter = 0
@@ -271,8 +235,10 @@ if __name__ == "__main__":
             print("Verfügbare Bahnhöfe:")
             print(bahnhoefe)
 
-    ergebnis = netz.kuerzeste_strecke(start_station, ziel_station)
+    # start_station = "Hauptbahnhof"
+    # ziel_station = "Garching-Forschungszentrum"
 
+    ergebnis = netz.kuerzeste_strecke(start_station, ziel_station)
     if ergebnis is False:
         print("Keine Verbindung vorhanden")
     else:
@@ -281,9 +247,10 @@ if __name__ == "__main__":
         # print("Pfad: " + str(pfad))
         # for station, linie in pfad:
         #     print(f"{station} ({linie})")
+        print(pfad)
         print("Gesamtzeit:", zeit, "Minuten")
 
-    
+    # Durchschnittliche Statistiken für das gesamte Netz
     abfrage_stats = input("Möchten Sie die durchschnittlichen Statistiken des Netzes abfragen? (ja/nein): ").strip().lower()
     if abfrage_stats == "ja":
         avg_dur, not_reached = calc_avg_dur(bahnhoefe)
@@ -298,7 +265,7 @@ if __name__ == "__main__":
         if not_reached > 0:
             print(f"Anzahl nicht befahrbarer Strecken: {not_reached} von {len(bahnhoefe)*(len(bahnhoefe)-1)//2} möglichen Strecken")
     
-
+    # ggf. Gründe für Nicht-Befahrbarkeit ausgeben
     if len(unavailable_verbindungen) > 0 and ergebnis is False:
         for unavailable_verbindung in unavailable_verbindungen:
             print("Grund für Nicht-Befahrbarkeit:")
