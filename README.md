@@ -27,6 +27,10 @@ Zielstation eingeben (z.B. Odeonsplatz)
 --> Ausgabe der kürzesten Fahrzeit und der zu Fahrenden Strecke
 Optional: Abfrage von Netzstatistiken (EIngabe ja/nein)
 
+Voraussetzungen:
+Python 3.8 oder neuer
+Verwendete Bibliotheken: heapq, defaultdict from collections, combinations from itertools
+
 Anpassungsmöglichkeiten:
 1. Verbindungen entfernen/außer Kraft setzen:
   - Liste 'unavailable_verbindungen' in 'strecken_muc' ergänzen. Format: (Startstation, Zielstation, Linie) --> bsp.: ("Friedenheimer Straße", "Laimer Platz", "U5")
@@ -34,5 +38,15 @@ Anpassungsmöglichkeiten:
 2. Umstiegszeiten ändern:
   - in 'netzwerk_ubahn.py' mit dem Befehl: netz.set_umsteigezeit(4) den Wert in den Klammern auf eine beliebige Höhe setzen
 
+Beispielhafte Ausgabe:
+Geben Sie die Startstation ein: Hauptbahnhof
+Geben Sie die Zielstation ein: Odeonsplatz
+[('Hauptbahnhof', 'U4'), ('Karlsplatz (Stachus)', 'U4'), ('Odeonsplatz', 'U4')]
+Gesamtzeit: 3.5 Minuten
+Möchten Sie die durchschnittlichen Statistiken des Netzes abfragen? (ja/nein): ja
+Durchschnittliche Fahrzeit zwischen allen Bahnhöfen: 21.988129899216126 Minuten
+Durchschnittliche Umstiege zwischen allen Bahnhöfen: 0.8029115341545353 Umstiege
+Durchschnittliche Anzahl Stationen zwischen allen Bahnhöfen: 12.309294512877939
+Anzahl nicht befahrbarer Strecken: 95 von 4560 möglichen Strecken
 
 Dieses Projekt dient zu Lern- und Studienzwecken.
