@@ -40,13 +40,21 @@ Anpassungsmöglichkeiten:
 
 Beispielhafte Ausgabe:
 Geben Sie die Startstation ein: Hauptbahnhof
+
 Geben Sie die Zielstation ein: Odeonsplatz
+
 [('Hauptbahnhof', 'U4'), ('Karlsplatz (Stachus)', 'U4'), ('Odeonsplatz', 'U4')]
+
 Gesamtzeit: 3.5 Minuten
+
 Möchten Sie die durchschnittlichen Statistiken des Netzes abfragen? (ja/nein): ja
+
 Durchschnittliche Fahrzeit zwischen allen Bahnhöfen: 21.988129899216126 Minuten
+
 Durchschnittliche Umstiege zwischen allen Bahnhöfen: 0.8029115341545353 Umstiege
+
 Durchschnittliche Anzahl Stationen zwischen allen Bahnhöfen: 12.309294512877939
+
 Anzahl nicht befahrbarer Strecken: 95 von 4560 möglichen Strecken
 
 Dieses Projekt dient zu Lern- und Studienzwecken.
